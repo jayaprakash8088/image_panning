@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_panning/core/services/repository.dart';
+import 'package:image_panning/features/model/fetch_image_response_model.dart';
 import 'package:image_panning/utils/app_config.dart';
 import 'package:image_panning/utils/string_constants.dart';
 import 'package:image_picker/image_picker.dart';
@@ -17,6 +18,7 @@ class UploadPictureViewModel extends ChangeNotifier{
   String imagePath='';
   CroppedFile? finalCroppedFile;
   bool showLoader=false;
+  bool showLoaderForEdit=false;
   //Image Picker function to get image from camera and gallery
   Future getImageFromCamera(bool fromCamera) async {
     XFile? pickedFile;
@@ -77,13 +79,27 @@ class UploadPictureViewModel extends ChangeNotifier{
         return false;}
     }catch(e){debugPrint(e.toString());}
   }
-
+  FetchImageResponseModel? fetchImageResponseModel;
+  bool callApi=false;
   Future fetchImage()async{
-    
+    try{
+      fetchImageResponseModel=await repository.fetchImage();
+      if(fetchImageResponseModel!=null){
+        changeEditLoader();
+        return true;
+      }else {
+        return false;
+      }
+    }catch(e){debugPrint(e.toString());}
   }
 
   void changeLoader(){
     showLoader=!showLoader;
+    notifyListeners();
+  }
+  void changeEditLoader(){
+    showLoaderForEdit=!showLoaderForEdit;
+    callApi=true;
     notifyListeners();
   }
 

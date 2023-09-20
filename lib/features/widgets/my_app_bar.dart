@@ -6,7 +6,7 @@ import '../../utils/app_color.dart';
 class MyAppBar extends StatelessWidget {
   const MyAppBar({super.key, required this.title, required this.onBackPressed});
   final String title;
-  final Function onBackPressed;
+  final Function() onBackPressed;
   @override
   Widget build(BuildContext context) {
     return AppBar(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_panning/features/widgets/edit_card_btn.dart';
 import 'package:image_panning/features/widgets/my_app_bar.dart';
-import 'package:image_panning/utils/app_images.dart';
 import 'package:image_panning/utils/string_constants.dart';
 import 'package:provider/provider.dart';
 
@@ -13,33 +12,25 @@ class EditCardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UploadPictureViewModel viewModel =
-    Provider.of<UploadPictureViewModel>(context);
-    viewModel.fetchImage();
-    return  Scaffold(
-      appBar:PreferredSize(
+        Provider.of<UploadPictureViewModel>(context);
+    if (!viewModel.callApi) {
+      viewModel.fetchImage();
+    }
+    return Scaffold(
+      appBar: PreferredSize(
           preferredSize: const Size.fromHeight(50.0),
           child: MyAppBar(
-              title:artist,
-              onBackPressed: () => Navigator.pop(context))),
-      body: Column(
+              title: artist, onBackPressed: () => Navigator.pop(context))),
+      body: !viewModel.showLoaderForEdit
+          ? const Center(child: CircularProgressIndicator())
+          : Stack(
         children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-            child: Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(rail),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              child: const Column(
-                children: [
-
-                ],
-              ),
-            ),
-          ),
-          const EditCardButton(text: editPhoto)
+           Image.network(viewModel.fetchImageResponseModel?.result?[0]
+                        .customImageCardDesignInfo?.profileBannerImageURL ??
+                    ''),
+          const Positioned(
+              bottom: 10.0,
+              child: EditCardButton(text: editPhoto))
         ],
       ),
     );

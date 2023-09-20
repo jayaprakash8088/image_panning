@@ -5,25 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_panning/core/services/url.dart';
 import 'package:http_parser/http_parser.dart';
-import '../../utils/string_constants.dart';
+import 'package:image_panning/utils/string_constants.dart';
 
 class ApiClient {
-  Future<dynamic> getAPI(String url) async {
-    Map<String, String> requestHeaders = {
-      contentType: applicationJson,
-    };
-    try {
-      dynamic response =
-          await http.get(Uri.parse(baseUrl + url), headers: requestHeaders);
-      if (response != null && response.statusCode == 200) {
-        return response.body;
-      } else {
-        return null;
-      }
-    } catch (e) {
-      debugPrint(e.toString());
-    }
-  }
 
   Future<dynamic> postAPI(String url, File img) async {
     try {
@@ -50,6 +34,28 @@ class ApiClient {
         debugPrint(d.toString());
       }
     } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  Future<dynamic> postAPIToFetchImage(String url, String body)async {
+    try{
+      var url1 = baseUrl + url;
+      var uri = Uri.parse(url1);
+      var response = await http.post(uri,
+          headers: {contentType: applicationJson,
+          'Authorization' :'Bearer $token'
+          },
+          body: body
+      );
+      debugPrint("${response.statusCode}");
+      debugPrint(response.body);
+     if(response.statusCode==200){
+       return response.body;
+     }else{
+       return null;
+     }
+    }catch(e){
       debugPrint(e.toString());
     }
   }

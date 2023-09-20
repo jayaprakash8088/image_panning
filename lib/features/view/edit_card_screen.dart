@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:image_panning/features/widgets/edit_card_btn.dart';
 import 'package:image_panning/features/widgets/my_app_bar.dart';
 import 'package:image_panning/features/widgets/stack_widgets.dart';
-import 'package:image_panning/utils/app_images.dart';
 import 'package:image_panning/utils/string_constants.dart';
 import 'package:provider/provider.dart';
 
@@ -23,32 +22,45 @@ class EditCardScreen extends StatelessWidget {
            artist,context),
       body: !viewModel.showLoaderForEdit
           ? const Center(child: CircularProgressIndicator())
-          : Column(
-        mainAxisSize: MainAxisSize.max,
-            children: [
-              Stack(
-                alignment: Alignment.topCenter,
+          : SingleChildScrollView(
+        physics: const ScrollPhysics(),
+            child: Column(
+              children: [
+                Stack(
+                  alignment: Alignment.topCenter,
         children: [
-               SizedBox(
-                 width: MediaQuery.of(context).size.width*0.87,
-                 child: ClipRRect(
-                   borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                   child: Image.network(viewModel.fetchImageResponseModel?.result?[0]
-                                .customImageCardDesignInfo?.profileBannerImageURL ??
-                            '',),
+                 SizedBox(
+                   width: MediaQuery.of(context).size.width*0.87,
+                   child: ClipRRect(
+                     borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                     child: Image.network(
+                       loadingBuilder:(BuildContext context, Widget child,ImageChunkEvent? loadingProgress) {
+                         if (loadingProgress == null) return child;
+                         return Center(
+                           child: CircularProgressIndicator(
+                             value: loadingProgress.expectedTotalBytes != null ?
+                             loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                                 : null,
+                           ),
+                         );
+                       },
+                       viewModel.fetchImageResponseModel?.result?[0]
+                                  .customImageCardDesignInfo?.profileBannerImageURL ??
+                              '',),
+                   ),
                  ),
-               ),
 
-           const Align(
-             child: StackWidgets())
+             const Align(
+               child: StackWidgets())
         ],
       ),
-              const SizedBox(height: 40.0,),
-              GestureDetector(
-                  onTap: (){},
-                  child: const EditCardButton(text: editPhoto)),
-              const SizedBox(height: 10.0,),
-            ],
+                const SizedBox(height: 30.0,),
+                GestureDetector(
+                    onTap: (){},
+                    child: const EditCardButton(text: editPhoto)),
+                const SizedBox(height: 10.0,),
+              ],
+            ),
           ),
     );
   }

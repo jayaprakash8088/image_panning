@@ -17,6 +17,7 @@ class StackWidgets extends StatelessWidget {
           child:CircleAvatar(radius: 48.0,
               backgroundImage: AssetImage(rail)),
         ),
+        SizedBox(height: 10.0,),
         Text('ALEXANDRA',style: TextStyle(color: white,
         fontWeight: FontWeight.w600,fontSize: 18.0),),
         Text('Stanton',style: TextStyle(color: white,

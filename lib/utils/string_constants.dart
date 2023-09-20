@@ -10,7 +10,11 @@ const String contentType='Content-type';
 const String applicationJson='application/json';
 const String authorization= 'Authorization';
 const String bearer= 'Bearer';
+const String artist= 'Artist';
+const String customImageCard= 'Custom image card';
+const String customizeYourCard= 'Customize your card';
 
 ////////////////toast messages////////////////////
 const String maxSize= 'Selected Image is more than 10MB.Please select less than 10MB image.';
 const String wrongType= 'Please select JPEG, PNG, JPG and SVG images only.';
+const String somethingWrong= 'Something went wrong. Please try again.';

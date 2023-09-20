@@ -72,12 +72,19 @@ class UploadPictureViewModel extends ChangeNotifier{
       if(response!=null&&response.success!){
         changeLoader();
         return true;
-      }else{return false;}
+      }else{
+        changeLoader();
+        return false;}
     }catch(e){debugPrint(e.toString());}
+  }
+
+  Future fetchImage()async{
+    
   }
 
   void changeLoader(){
     showLoader=!showLoader;
     notifyListeners();
   }
+
 }

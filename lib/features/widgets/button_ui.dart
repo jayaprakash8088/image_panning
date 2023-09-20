@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:image_panning/utils/app_color.dart';
-import 'package:image_panning/utils/string_constants.dart';
 
 class ButtonUI extends StatelessWidget {
   const ButtonUI({super.key, required this.text});

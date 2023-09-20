@@ -11,5 +11,5 @@ class AppConfig{
         fontSize: 16.0
     );
   }
-  static List<String>imageTypes=['jpg,jpeg,png,svg'];
+  static List<String>imageTypes=['jpg','jpeg','png','svg'];
 }

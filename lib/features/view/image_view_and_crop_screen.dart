@@ -19,13 +19,11 @@ class ImageViewAndCropScreen extends StatelessWidget {
         Provider.of<UploadPictureViewModel>(context);
     viewModel.finalCroppedFile == null ? viewModel.cropImage() : null;
     return Scaffold(
-      appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(50.0),
-          child: MyAppBar(
-              title: viewModel.finalCroppedFile != null
-                  ? uploadPicture
-                  : editPhoto,
-              onBackPressed: () => Navigator.pop(context))),
+      appBar: MyAppBar(
+           viewModel.finalCroppedFile != null
+              ? uploadPicture
+              : editPhoto,
+         context),
       body: viewModel.showLoader
           ? const Center(child: CircularProgressIndicator())
           : Column(

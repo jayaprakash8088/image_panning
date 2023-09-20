@@ -18,13 +18,12 @@ class ChangeDesignScreen extends StatelessWidget {
         Provider.of<UploadPictureViewModel>(context, listen: false);
     return Scaffold(
       backgroundColor: white,
-      appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(80.0),
-          child: MyAppBar(
-              title: changeDesign,
-              onBackPressed: () => Navigator.pop(context))),
+      appBar: MyAppBar(
+           changeDesign,
+          context),
       body: Column(
         children: [
+          SizedBox(height: 20.0,),
           Center(
             child: GestureDetector(
               onTap: () => openBottomSheet(context,viewModel),

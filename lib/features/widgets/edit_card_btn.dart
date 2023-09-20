@@ -11,7 +11,7 @@ class EditCardButton extends StatelessWidget {
       height: 50.0,
       width: MediaQuery.of(context).size.width * 0.8,
       decoration:  BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+        borderRadius: const BorderRadius.all(Radius.circular(25.0)),
          border: Border.all(color: red,)),
       child:  Center(
         child: Text(text,

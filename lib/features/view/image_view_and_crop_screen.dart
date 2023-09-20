@@ -24,7 +24,7 @@ class ImageViewAndCropScreen extends StatelessWidget {
                   ? uploadPicture
                   : editPhoto,
               onBackPressed: () => Navigator.pop(context))),
-      body: Column(
+      body: viewModel.showLoader?const CircularProgressIndicator():Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [

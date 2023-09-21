@@ -26,19 +26,19 @@ class ImageViewAndCropScreen extends StatelessWidget {
               elevation: 0.0,
               backgroundColor: Colors.white,
               foregroundColor: Colors.white,
-              leadingWidth: 10.0,
-              leading: GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Padding(
-                    padding: EdgeInsets.all(3.0),
-                    child: Icon(
-                      size: 14.0,
+              leadingWidth: 20.0,
+              leading: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Icon(
+                      size: 18.0,
                       Icons.arrow_back_ios_sharp,
                       color: black,
-                    ),
-                  )),
+                    )),
+              ),
               title: Text(
                 viewModel.finalCroppedFile != null ? uploadPicture : editPhoto,
                 style: GoogleFonts.roboto(

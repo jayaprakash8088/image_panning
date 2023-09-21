@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_panning/features/view/image_view_and_crop_screen.dart';
 import 'package:image_panning/features/view_model/upload_picture_view_model.dart';
-import 'package:image_panning/features/widgets/image_select_pop%20_up.dart';
-import 'package:image_panning/features/widgets/my_app_bar.dart';
 import 'package:image_panning/utils/app_color.dart';
 import 'package:image_panning/utils/app_images.dart';
 import 'package:image_panning/utils/string_constants.dart';
 import 'package:provider/provider.dart';
+
+import '../widgets/bottom_sheet.dart';
 
 class ChangeDesignScreen extends StatelessWidget {
   const ChangeDesignScreen({super.key});
@@ -18,15 +17,23 @@ class ChangeDesignScreen extends StatelessWidget {
         Provider.of<UploadPictureViewModel>(context, listen: false);
     return Scaffold(
       backgroundColor: white,
-      appBar: MyAppBar(
-           changeDesign,
-          context),
+      appBar: AppBar(
+          elevation: 0.0,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.white,
+          leadingWidth: 10.0,
+          title:  Text(changeDesign,style:  GoogleFonts.roboto(
+            color:black,fontSize: 16.0,
+            fontWeight: FontWeight.w500,
+          ),),
+          centerTitle:false,
+      ),
       body: Column(
         children: [
-          SizedBox(height: 20.0,),
+          const SizedBox(height: 20.0,),
           Center(
             child: GestureDetector(
-              onTap: () => openBottomSheet(context,viewModel),
+              onTap: () => openBottomSheet(context,viewModel,false),
               child: Container(
                 height: 65.0,
                 padding: const EdgeInsets.all(5.0),
@@ -60,38 +67,6 @@ class ChangeDesignScreen extends StatelessWidget {
     );
   }
 
-  openBottomSheet(BuildContext context, UploadPictureViewModel viewModel) {
-    return showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return  SizedBox(
-          height: 120.0,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              GestureDetector(
-                  onTap: (){
-                    viewModel.getImageFromCamera(true).then((dynamic value) =>{
-                      if(value!=null){
-                        navigateToNextScreen(context)
-                      }
-                    } );
-                  },
-                  child: const ImageSelectPopUp(title: camera)),
-              const SizedBox(
-                width: 30.0,
-              ),
-              const ImageSelectPopUp(title: gallery),
-            ],
-          ),
-        );
-      },
-    );
-  }
 }
 
-navigateToNextScreen(BuildContext context) {
-  dynamic route=MaterialPageRoute(builder: (context)=>const ImageViewAndCropScreen());
-  Navigator.push(context, route);
-}
+

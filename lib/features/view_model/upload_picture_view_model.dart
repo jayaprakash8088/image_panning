@@ -23,9 +23,13 @@ class UploadPictureViewModel extends ChangeNotifier{
   bool showLoader=false;
   bool showLoaderForEdit=false;
   bool showLoaderForLongUI=false;
+  bool showPickedImage=false;
   bool customize=false;
+  final scaleMatrix = Matrix4.identity()..scale(0.5);
+   TransformationController transformationController =
+  TransformationController();
   //Image Picker function to get image from camera and gallery
-  Future getImageFromCamera(bool fromCamera) async {
+  Future getImage(bool fromCamera, bool fromUpdate) async {
     XFile? pickedFile;
     if(fromCamera){
       pickedFile=await picker.pickImage(source: ImageSource.camera);
@@ -34,6 +38,9 @@ class UploadPictureViewModel extends ChangeNotifier{
     }
       if (pickedFile != null) {
         image =File(pickedFile.path) ;
+      }
+      if(fromUpdate){
+        changeShowPickedImage();
       }
       return image;
 
@@ -126,6 +133,10 @@ class UploadPictureViewModel extends ChangeNotifier{
   }
   void changeCustomize(){
     customize=!customize;
+    notifyListeners();
+  }
+  void changeShowPickedImage(){
+    showPickedImage=!showPickedImage;
     notifyListeners();
   }
   Future resizeImage(GlobalKey<State<StatefulWidget>> globalKey)async{

@@ -22,6 +22,7 @@ class UploadPictureViewModel extends ChangeNotifier{
   CroppedFile? finalCroppedFile;
   bool showLoader=false;
   bool showLoaderForEdit=false;
+  bool showLoaderForLongUI=false;
   bool customize=false;
   //Image Picker function to get image from camera and gallery
   Future getImageFromCamera(bool fromCamera) async {
@@ -96,7 +97,20 @@ class UploadPictureViewModel extends ChangeNotifier{
       }
     }catch(e){debugPrint(e.toString());}
   }
-
+  Future saveImageAfterCustomized(Uint8List imageBytes)async{
+    SaveImageResponseModel? response;
+    try{
+      response=await repository.saveCustomImage(imageBytes);
+      if(response!=null&&response.success!){
+        changeLoaderForLong();
+        return true;
+      }else{changeLoaderForLong();
+      return false;}
+    }catch(e){
+      debugPrint(e.toString());
+    }
+  }
+  /////////////////////////////////////////////////
   void changeLoader(){
     showLoader=!showLoader;
     notifyListeners();
@@ -106,27 +120,22 @@ class UploadPictureViewModel extends ChangeNotifier{
     callApi=true;
     notifyListeners();
   }
+  void changeLoaderForLong(){
+    showLoaderForLongUI=!showLoaderForLongUI;
+    notifyListeners();
+  }
   void changeCustomize(){
     customize=!customize;
     notifyListeners();
   }
-  resizeImage(GlobalKey<State<StatefulWidget>> globalKey)async{
+  Future resizeImage(GlobalKey<State<StatefulWidget>> globalKey)async{
+     changeLoaderForLong();
     final boundary = globalKey.currentContext?.findRenderObject() as RenderRepaintBoundary?;
     final image = await boundary?.toImage();
     final byteData = await image?.toByteData(format: ImageByteFormat.png);
     final imageBytes = byteData?.buffer.asUint8List();
-    saveImageAfterCustomized(imageBytes!);
+    bool res=await saveImageAfterCustomized(imageBytes!);
+    return res;
   }
-  Future saveImageAfterCustomized(Uint8List imageBytes)async{
-    SaveImageResponseModel? response;
-    try{
-      response=await repository.saveCustomImage(imageBytes);
-      if(response!=null&&response.success!){
-        return true;
-      }else{
-        return false;}
-    }catch(e){
-      debugPrint(e.toString());
-    }
-  }
+
 }

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:image_panning/features/view/edit_card_screen.dart';
 import 'package:image_panning/features/widgets/button_ui.dart';
 import 'package:image_panning/features/widgets/customize_btn.dart';
 import 'package:image_panning/features/widgets/my_app_bar.dart';
 import 'package:image_panning/features/widgets/top_button.dart';
-import 'package:image_panning/features/widgets/zoomable_image.dart';
 import 'package:image_panning/utils/string_constants.dart';
 import 'package:provider/provider.dart';
 
+import '../../utils/app_config.dart';
 import '../view_model/upload_picture_view_model.dart';
 import '../widgets/profile.dart';
 
@@ -18,11 +19,11 @@ class LongImage extends StatelessWidget {
     final globalKey = GlobalKey();
     UploadPictureViewModel viewModel =
         Provider.of<UploadPictureViewModel>(context);
-    final scaleMatrix = Matrix4.identity()..scale(0.5);
-    final viewTransformationController = TransformationController(scaleMatrix);
     return Scaffold(
       appBar: MyAppBar(customImageCard, context),
-      body: SingleChildScrollView(
+      body: viewModel.showLoaderForLongUI?
+          const Center(child: CircularProgressIndicator(),):
+      SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.all(5.0),
@@ -42,19 +43,11 @@ class LongImage extends StatelessWidget {
                         key: globalKey,
                         child: InteractiveViewer(
                             scaleEnabled: viewModel.customize,
-                            transformationController:
-                                viewTransformationController,
                             constrained: false,
                             minScale: 0.1,
+                            scaleFactor: 0.5,
                             maxScale: 6,
                             panEnabled: viewModel.customize,
-                            onInteractionEnd: (details) {
-                              var value = details.pointerCount;
-                              var value1 = details.velocity;
-                              var value2 = details.scaleVelocity;
-
-                              print('${value1.pixelsPerSecond}');
-                            },
                             child: Image.network(
                               fit: BoxFit.cover,
                               loadingBuilder: (BuildContext context,
@@ -99,12 +92,26 @@ class LongImage extends StatelessWidget {
               ),
               const SizedBox(height: 15.0),
               GestureDetector(onTap: () {
-                viewModel.resizeImage(globalKey);
+                viewModel.resizeImage(globalKey).then((dynamic value) =>{
+                  if(value!=null&&value){
+                    moveToImageView(context,viewModel)
+                  }else{
+                AppConfig.showToast(somethingWrong)
+                }
+                } );
               }, child: const ButtonUI(text: save))
             ],
           ),
         ),
       ),
     );
+  }
+
+ void moveToImageView(BuildContext context, UploadPictureViewModel viewModel) {
+   viewModel.callApi=false;
+   viewModel.showLoaderForEdit=true;
+   viewModel.customize=false;
+    dynamic newRoute=MaterialPageRoute(builder: (context)=>const EditCardScreen());
+    Navigator.pushAndRemoveUntil(context, newRoute, (route) => false);
   }
 }

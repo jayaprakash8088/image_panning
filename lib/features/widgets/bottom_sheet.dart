@@ -10,7 +10,7 @@ Future openBottomSheet(BuildContext context, UploadPictureViewModel viewModel,bo
     context: context,
     builder: (BuildContext context) {
       return  SizedBox(
-        height: 120.0,
+        height: 150.0,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,

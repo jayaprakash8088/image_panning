@@ -20,7 +20,7 @@ Future openBottomSheet(BuildContext context, UploadPictureViewModel viewModel,bo
                   viewModel.getImage(true,fromUpdate).then((dynamic value) =>{
                     if(value!=null){
                       fromUpdate?
-                      Navigator.pop(context,value):
+                      Navigator.pop(context):
                       navigateToNextScreen(context)
                     }
                   } );
@@ -34,7 +34,7 @@ Future openBottomSheet(BuildContext context, UploadPictureViewModel viewModel,bo
                   viewModel.getImage(false,fromUpdate).then((dynamic value) =>{
                     if(value!=null){
                       fromUpdate?
-                      Navigator.pop(context,value):
+                      Navigator.pop(context):
                       navigateToNextScreen(context)
                     }
                   } );

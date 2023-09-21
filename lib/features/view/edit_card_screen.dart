@@ -20,10 +20,8 @@ class EditCardScreen extends StatelessWidget {
     if (!viewModel.callApi) {
       viewModel.fetchImage();
     }
-    return  !viewModel.showLoaderForEdit
-        ? const Center(child: CircularProgressIndicator())
-        :Scaffold(
-      appBar:
+    return  Scaffold(
+      appBar:!viewModel.showLoaderForEdit?null:
       AppBar(elevation: 0.0,
           backgroundColor: Colors.white,
           foregroundColor: Colors.white,
@@ -44,7 +42,9 @@ class EditCardScreen extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),),
           ),
-      body:SingleChildScrollView(
+      body:!viewModel.showLoaderForEdit
+          ? const Center(child: CircularProgressIndicator())
+          :SingleChildScrollView(
         physics: const ScrollPhysics(),
             child: Column(
               children: [
@@ -91,7 +91,7 @@ class EditCardScreen extends StatelessWidget {
   }
 
   void navigateToNextScreen(BuildContext context) {
-    dynamic route=MaterialPageRoute(builder: (context)=>const LongImage());
+    dynamic route=MaterialPageRoute(builder: (context)=> const LongImage());
     Navigator.push(context, route);
   }
 }

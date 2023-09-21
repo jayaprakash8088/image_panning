@@ -25,9 +25,8 @@ class UploadPictureViewModel extends ChangeNotifier{
   bool showLoaderForLongUI=false;
   bool showPickedImage=false;
   bool customize=false;
-  final scaleMatrix = Matrix4.identity()..scale(0.5);
-   TransformationController transformationController =
-  TransformationController();
+  final scaleMatrix = Matrix4.identity()..scale(1.0);
+  final  viewTransformationController = TransformationController();
   //Image Picker function to get image from camera and gallery
   Future getImage(bool fromCamera, bool fromUpdate) async {
     XFile? pickedFile;

@@ -19,10 +19,10 @@ class ImageViewAndCropScreen extends StatelessWidget {
     UploadPictureViewModel viewModel =
         Provider.of<UploadPictureViewModel>(context);
     viewModel.finalCroppedFile == null ? viewModel.cropImage() : null;
-    return viewModel.showLoader
-        ? const Center(child: CircularProgressIndicator())
-        : Scaffold(
-            appBar: AppBar(
+    return  Scaffold(
+            appBar: viewModel.showLoader
+                ? null
+                :AppBar(
               elevation: 0.0,
               backgroundColor: Colors.white,
               foregroundColor: Colors.white,
@@ -49,7 +49,9 @@ class ImageViewAndCropScreen extends StatelessWidget {
               ),
               centerTitle: viewModel.customize,
             ),
-            body: Column(
+            body:viewModel.showLoader
+                ? const Center(child: CircularProgressIndicator())
+                : Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(

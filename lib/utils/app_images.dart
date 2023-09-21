@@ -5,3 +5,4 @@ const String galleryIcon='assets/images/gallery.png';
 const String elredLogo='assets/images/elredLogoWhite.png';
 const String profile='assets/images/profile.png';
 const String rail='assets/images/rail.png';
+const String editPicture='assets/images/edit_picture.png';

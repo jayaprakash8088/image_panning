@@ -1,7 +1,10 @@
 
 import 'dart:io';
+import 'dart:typed_data';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_panning/core/services/repository.dart';
 import 'package:image_panning/features/model/fetch_image_response_model.dart';
@@ -19,6 +22,7 @@ class UploadPictureViewModel extends ChangeNotifier{
   CroppedFile? finalCroppedFile;
   bool showLoader=false;
   bool showLoaderForEdit=false;
+  bool customize=false;
   //Image Picker function to get image from camera and gallery
   Future getImageFromCamera(bool fromCamera) async {
     XFile? pickedFile;
@@ -102,5 +106,27 @@ class UploadPictureViewModel extends ChangeNotifier{
     callApi=true;
     notifyListeners();
   }
-
+  void changeCustomize(){
+    customize=!customize;
+    notifyListeners();
+  }
+  resizeImage(GlobalKey<State<StatefulWidget>> globalKey)async{
+    final boundary = globalKey.currentContext?.findRenderObject() as RenderRepaintBoundary?;
+    final image = await boundary?.toImage();
+    final byteData = await image?.toByteData(format: ImageByteFormat.png);
+    final imageBytes = byteData?.buffer.asUint8List();
+    saveImageAfterCustomized(imageBytes!);
+  }
+  Future saveImageAfterCustomized(Uint8List imageBytes)async{
+    SaveImageResponseModel? response;
+    try{
+      response=await repository.saveCustomImage(imageBytes);
+      if(response!=null&&response.success!){
+        return true;
+      }else{
+        return false;}
+    }catch(e){
+      debugPrint(e.toString());
+    }
+  }
 }

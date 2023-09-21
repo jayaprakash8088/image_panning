@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:image_panning/core/services/api_client.dart';
@@ -41,4 +42,18 @@ class Repository{
       debugPrint(e.toString());
     }
  }
+
+  Future saveCustomImage(Uint8List imageBytes) async{
+    dynamic response;
+    try{
+      response=await apiClient.saveCustomImage(postProfileBannerImage, imageBytes);
+    }catch(e){
+      debugPrint(e.toString());
+    }
+    if(response!=null) {
+      return SaveImageResponseModel.fromJson(response);
+    }else{
+      return null;
+    }
+  }
 }

@@ -13,6 +13,7 @@ const String bearer= 'Bearer';
 const String artist= 'Artist';
 const String customImageCard= 'Custom image card';
 const String customizeYourCard= 'Customize your card';
+const String save= 'Save';
 
 ////////////////toast messages////////////////////
 const String maxSize= 'Selected Image is more than 10MB.Please select less than 10MB image.';

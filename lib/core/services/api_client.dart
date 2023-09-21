@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -59,4 +60,33 @@ class ApiClient {
       debugPrint(e.toString());
     }
   }
+  // save edited image
+Future<dynamic>saveCustomImage(String url,Uint8List imageBytes)async{
+  try {
+    var url1 = baseUrl + url;
+    var uri = Uri.parse(url1);
+    var request = http.MultipartRequest("POST", uri);
+    request.headers['Authorization'] = 'Bearer $token';
+    request.files.add(http.MultipartFile.fromBytes(
+      key,
+      imageBytes,
+      contentType:  MediaType('image', 'png'),
+      filename:'image' ,
+    ));
+    var response = await request.send();
+    if (response.statusCode == 200) {
+      var responseData = await response.stream.toBytes();
+      var responseString = String.fromCharCodes(responseData);
+      var data = jsonDecode(responseString);
+      return data;
+    } else {
+      var responseData = await response.stream.toBytes();
+      var responseString = String.fromCharCodes(responseData);
+      var d = jsonDecode(responseString);
+      debugPrint(d.toString());
+    }
+  } catch (e) {
+    debugPrint(e.toString());
+  }
+}
 }

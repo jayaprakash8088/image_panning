@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+import 'package:image_panning/features/view/long_image.dart';
 import 'package:image_panning/features/widgets/edit_card_btn.dart';
 import 'package:image_panning/features/widgets/my_app_bar.dart';
 import 'package:image_panning/features/widgets/stack_widgets.dart';
@@ -29,10 +31,11 @@ class EditCardScreen extends StatelessWidget {
                 Stack(
                   alignment: Alignment.topCenter,
         children: [
-                 SizedBox(
-                   width: MediaQuery.of(context).size.width*0.87,
-                   child: ClipRRect(
-                     borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+          ClipRRect(
+            borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                   child: SizedBox(
+                     width: MediaQuery.of(context).size.width*0.87,
+                     height: MediaQuery.of(context).size.height*0.75,
                      child: Image.network(
                        loadingBuilder:(BuildContext context, Widget child,ImageChunkEvent? loadingProgress) {
                          if (loadingProgress == null) return child;
@@ -46,7 +49,7 @@ class EditCardScreen extends StatelessWidget {
                        },
                        viewModel.fetchImageResponseModel?.result?[0]
                                   .customImageCardDesignInfo?.profileBannerImageURL ??
-                              '',),
+                              '',fit: BoxFit.cover,),
                    ),
                  ),
 
@@ -56,12 +59,19 @@ class EditCardScreen extends StatelessWidget {
       ),
                 const SizedBox(height: 30.0,),
                 GestureDetector(
-                    onTap: (){},
+                    onTap: (){
+                      navigateToNextScreen(context);
+                    },
                     child: const EditCardButton(text: editPhoto)),
                 const SizedBox(height: 10.0,),
               ],
             ),
           ),
     );
+  }
+
+  void navigateToNextScreen(BuildContext context) {
+    dynamic route=MaterialPageRoute(builder: (context)=>const LongImage());
+    Navigator.push(context, route);
   }
 }

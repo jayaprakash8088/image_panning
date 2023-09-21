@@ -15,6 +15,8 @@ class Profile extends StatelessWidget {
         const SizedBox(height: 10.0,),
         const Text('ALEXANDRA',style: TextStyle(color: white,
             fontWeight: FontWeight.w600,fontSize: 18.0),),
+        const Text('Stanton',style: TextStyle(color: white,
+            fontWeight: FontWeight.w500,fontSize: 16.0),),
       ],
     );
   }

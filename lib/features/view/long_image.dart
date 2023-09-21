@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:image_panning/features/widgets/button_ui.dart';
 import 'package:image_panning/features/widgets/customize_btn.dart';
 import 'package:image_panning/features/widgets/my_app_bar.dart';
+import 'package:image_panning/features/widgets/top_button.dart';
 import 'package:image_panning/features/widgets/zoomable_image.dart';
 import 'package:image_panning/utils/string_constants.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +28,9 @@ class LongImage extends StatelessWidget {
           padding: const EdgeInsets.all(5.0),
           child: Column(
             children: [
-
+              const SizedBox(height: 5.0),
+               const TopButton(),
+              const SizedBox(height: 10.0),
               ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                 child: SizedBox(

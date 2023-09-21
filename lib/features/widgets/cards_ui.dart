@@ -9,7 +9,7 @@ class  CardsUI extends StatelessWidget {
     return  const SizedBox(
       height: 50.0,
       child: Wrap(
-        spacing: 5.0,
+        spacing: 15.0,
         children: [
          SmallIcon(icon: Icons.adb_sharp),
          SmallIcon(icon: Icons.mail),

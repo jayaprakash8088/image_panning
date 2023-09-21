@@ -8,7 +8,7 @@ class ButtonUI extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 50.0,
-      width: MediaQuery.of(context).size.width * 0.8,
+      width: MediaQuery.of(context).size.width * 0.9,
       decoration: const BoxDecoration(
           color: red, borderRadius: BorderRadius.all(Radius.circular(25.0))),
       child:  Center(

@@ -36,14 +36,14 @@ class LongImage extends StatelessWidget {
                       Navigator.pop(context);
                     },
                     child: const Icon(
-                      size: 18.0,
+                      size: 20.0,
                       Icons.arrow_back_ios_sharp,
                       color: black,
                     )),
               )
               : const SizedBox(),
           title: Text(
-            title,
+            customImageCard,
             style: GoogleFonts.roboto(
               color: black,
               fontSize: 16.0,
@@ -70,10 +70,10 @@ class LongImage extends StatelessWidget {
           : SingleChildScrollView(
               physics: const AlwaysScrollableScrollPhysics(),
               child: Padding(
-                padding: const EdgeInsets.all(5.0),
+                padding: const EdgeInsets.only(top:5,left:20.0,right: 20.0,bottom: 20.0),
                 child: Column(
                   children: [
-                    const SizedBox(height: 5.0),
+                    // const SizedBox(height: 5.0),
                     Visibility(
                         visible: viewModel.customize,
                         child: GestureDetector(

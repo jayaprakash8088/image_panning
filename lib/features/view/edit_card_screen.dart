@@ -33,7 +33,7 @@ class EditCardScreen extends StatelessWidget {
                   Navigator.pop(context);
                 },
                 child: const Icon(
-                  size:18.0,
+                  size: 20.0,
                   Icons.arrow_back_ios_sharp,
                   color: black,) ),
           ),

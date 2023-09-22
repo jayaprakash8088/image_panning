@@ -23,7 +23,6 @@ class LongImage extends StatelessWidget {
         Provider.of<UploadPictureViewModel>(context);
     return Scaffold(
       appBar: AppBar(
-
           elevation: 0.0,
           backgroundColor: Colors.white,
           foregroundColor: Colors.white,
@@ -67,133 +66,136 @@ class LongImage extends StatelessWidget {
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              child: Padding(
-                padding: const EdgeInsets.only(top:5,left:20.0,right: 20.0,bottom: 20.0),
-                child: Column(
-                  children: [
-                    // const SizedBox(height: 5.0),
-                    Visibility(
-                        visible: viewModel.customize,
-                        child: GestureDetector(
-                            onTap: () {
-                              openBottomSheet(context, viewModel, true);
-                            },
-                            child: const TopButton())),
-                    const SizedBox(height: 10.0),
-                    ClipRRect(
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(10.0)),
-                      child: SizedBox(
-                        height: viewModel.customize
-                            ? MediaQuery.of(context).size.height * 0.7
-                            : MediaQuery.of(context).size.height,
-                        width: MediaQuery.of(context).size.width,
-                        child: Stack(
-                          children: [
-                            RepaintBoundary(
-                              key: globalKey,
-                              child: InteractiveViewer(
-                                  scaleEnabled: viewModel.customize,
-                                  constrained: false,
-                                  minScale: 0.1,
-                                  scaleFactor: 0.5,
-                                  maxScale: 6,
-                                  trackpadScrollCausesScale: true,
-                                  panEnabled: viewModel.customize,
-                                  child: viewModel.showPickedImage
-                                      ? Image.file(viewModel.image!,
-                                    fit: BoxFit.fill,
-                                    height: viewModel.customize
-                                        ? MediaQuery.of(context)
-                                        .size
-                                        .height *
-                                        0.7
-                                        : MediaQuery.of(context)
-                                        .size
-                                        .height,
-                                    width:MediaQuery.of(context)
-                                        .size
-                                        .width ,
-                                  )
-                                      : Image.network(
-                                          fit: BoxFit.fill,
-                                          height: viewModel.customize
-                                              ? MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.7
-                                              : MediaQuery.of(context)
-                                                  .size
-                                                  .height,
-                                          width:MediaQuery.of(context)
-                                              .size
-                                              .width ,
-                                          // loadingBuilder: (BuildContext context,
-                                          //     Widget child,
-                                          //     ImageChunkEvent?
-                                          //         loadingProgress) {
-                                          //   if (loadingProgress == null) {
-                                          //     return child;
-                                          //   }
-                                          //   return Center(
-                                          //     child: CircularProgressIndicator(
-                                          //       value: loadingProgress
-                                          //                   .expectedTotalBytes !=
-                                          //               null
-                                          //           ? loadingProgress
-                                          //                   .cumulativeBytesLoaded /
-                                          //               loadingProgress
-                                          //                   .expectedTotalBytes!
-                                          //           : null,
-                                          //     ),
-                                          //   );
-                                          // },
-                                          viewModel
-                                                  .fetchImageResponseModel
-                                                  ?.result?[0]
-                                                  .customImageCardDesignInfo
-                                                  ?.profileBannerImageURL ??
-                                              '',
-                                        )),
-                            ),
-                            Visibility(
-                              visible: !viewModel.customize,
-                              child: Positioned(
-                                  top: 10.0,
-                                  right: 10.0,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      viewModel.changeCustomize();
-                                    },
-                                    child: const CustomizeButton(),
-                                  )),
-                            ),
-                            const Positioned.fill(top: 30.0, child: Profile())
-                          ],
+          : WillPopScope(
+        onWillPop: ()=>backPressed(viewModel,context),
+            child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: Padding(
+                  padding: const EdgeInsets.only(top:5,left:20.0,right: 20.0,bottom: 20.0),
+                  child: Column(
+                    children: [
+                      // const SizedBox(height: 5.0),
+                      Visibility(
+                          visible: viewModel.customize,
+                          child: GestureDetector(
+                              onTap: () {
+                                openBottomSheet(context, viewModel, true);
+                              },
+                              child: const TopButton())),
+                      const SizedBox(height: 10.0),
+                      ClipRRect(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10.0)),
+                        child: SizedBox(
+                          height: viewModel.customize
+                              ? MediaQuery.of(context).size.height * 0.7
+                              : MediaQuery.of(context).size.height,
+                          width: MediaQuery.of(context).size.width,
+                          child: Stack(
+                            children: [
+                              RepaintBoundary(
+                                key: globalKey,
+                                child: InteractiveViewer(
+                                    scaleEnabled: viewModel.customize,
+                                    constrained: false,
+                                    minScale: 0.1,
+                                    scaleFactor: 0.5,
+                                    maxScale: 6,
+                                    trackpadScrollCausesScale: true,
+                                    panEnabled: viewModel.customize,
+                                    child: viewModel.showPickedImage
+                                        ? Image.file(viewModel.image!,
+                                      fit: BoxFit.fill,
+                                      height: viewModel.customize
+                                          ? MediaQuery.of(context)
+                                          .size
+                                          .height *
+                                          0.7
+                                          : MediaQuery.of(context)
+                                          .size
+                                          .height,
+                                      width:MediaQuery.of(context)
+                                          .size
+                                          .width ,
+                                    )
+                                        : Image.network(
+                                            fit: BoxFit.fill,
+                                            height: viewModel.customize
+                                                ? MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.7
+                                                : MediaQuery.of(context)
+                                                    .size
+                                                    .height,
+                                            width:MediaQuery.of(context)
+                                                .size
+                                                .width ,
+                                            loadingBuilder: (BuildContext context,
+                                                Widget child,
+                                                ImageChunkEvent?
+                                                    loadingProgress) {
+                                              if (loadingProgress == null) {
+                                                return child;
+                                              }
+                                              return Center(
+                                                child: CircularProgressIndicator(
+                                                  value: loadingProgress
+                                                              .expectedTotalBytes !=
+                                                          null
+                                                      ? loadingProgress
+                                                              .cumulativeBytesLoaded /
+                                                          loadingProgress
+                                                              .expectedTotalBytes!
+                                                      : null,
+                                                ),
+                                              );
+                                            },
+                                            viewModel
+                                                    .fetchImageResponseModel
+                                                    ?.result?[0]
+                                                    .customImageCardDesignInfo
+                                                    ?.profileBannerImageURL ??
+                                                '',
+                                          )),
+                              ),
+                              Visibility(
+                                visible: !viewModel.customize,
+                                child: Positioned(
+                                    top: 10.0,
+                                    right: 10.0,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        viewModel.changeCustomize();
+                                      },
+                                      child: const CustomizeButton(),
+                                    )),
+                              ),
+                              const Positioned.fill(top: 30.0, child: Profile())
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 15.0),
-                    GestureDetector(
-                        onTap: () {
-                          viewModel
-                              .resizeImage(globalKey)
-                              .then((dynamic value) => {
-                                    if (value != null && value)
-                                      {
-                                        moveToImageView(context, viewModel)
-                                      }
-                                    else
-                                      {AppConfig.showToast(somethingWrong)}
-                                  });
-                        },
-                        child: const ButtonUI(text: save))
-                  ],
+                      const SizedBox(height: 15.0),
+                      GestureDetector(
+                          onTap: () {
+                            viewModel
+                                .resizeImage(globalKey)
+                                .then((dynamic value) => {
+                                      if (value != null && value)
+                                        {
+                                          moveToImageView(context, viewModel)
+                                        }
+                                      else
+                                        {AppConfig.showToast(somethingWrong)}
+                                    });
+                          },
+                          child: const ButtonUI(text: save))
+                    ],
+                  ),
                 ),
               ),
-            ),
+          ),
     );
   }
 
@@ -204,5 +206,11 @@ class LongImage extends StatelessWidget {
     dynamic newRoute =
         MaterialPageRoute(builder: (context) => const EditCardScreen());
     Navigator.pushAndRemoveUntil(context, newRoute, (route) => false);
+  }
+
+  backPressed(UploadPictureViewModel viewModel,BuildContext context)async {
+    viewModel.image=null;
+    viewModel.showPickedImage=false;
+    Navigator.pop(context);
   }
 }

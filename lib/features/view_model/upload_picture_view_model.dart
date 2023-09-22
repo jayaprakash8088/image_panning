@@ -67,15 +67,20 @@ class UploadPictureViewModel extends ChangeNotifier{
   Future saveImage()async{
     SaveImageResponseModel? response;
     try{
-      File image=File(finalCroppedFile!.path);
-      final bytes = image.readAsBytesSync().lengthInBytes;
+      File? imageToSave;
+      if(finalCroppedFile!=null){
+        imageToSave=File(finalCroppedFile!.path);
+      }else{
+        imageToSave=File(image!.path);
+      }
+      final bytes = imageToSave.readAsBytesSync().lengthInBytes;
       final kb = bytes / 1024;
       final mb = kb / 1024;
-      var type = image.path.split('.').last;
+      var type = imageToSave.path.split('.').last;
     if(mb<10){
     if(AppConfig.imageTypes.contains(type)){
       changeLoader();
-      response=await repository.saveImage(image);
+      response=await repository.saveImage(imageToSave);
     }else{
       AppConfig.showToast(wrongType);
     }

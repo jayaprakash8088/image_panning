@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../../../utils/app_color.dart';
 import '../../view_model/edit_view_model.dart';
+import '../../widgets/logo_ui.dart';
 
 class EditCardScreen extends StatelessWidget {
   const EditCardScreen({super.key});
@@ -55,7 +56,7 @@ class EditCardScreen extends StatelessWidget {
             borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                    child: SizedBox(
                      width: MediaQuery.of(context).size.width*0.87,
-                     height: MediaQuery.of(context).size.height*0.85,
+                     height: MediaQuery.of(context).size.height*0.75,
                      child: Image.network(
                        loadingBuilder:(BuildContext context, Widget child,ImageChunkEvent? loadingProgress) {
                          if (loadingProgress == null) return child;

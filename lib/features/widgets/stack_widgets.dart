@@ -10,26 +10,23 @@ class StackWidgets extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
+    return  const Column(
       children: [
-        const SizedBox(height: 30.0),
-        const ClipOval(
+        SizedBox(height: 30.0),
+        ClipOval(
           child:CircleAvatar(radius: 48.0,
               backgroundImage: AssetImage(rail)),
         ),
-        const SizedBox(height: 10.0,),
-        const Text('ALEXANDRA',style: TextStyle(color: white,
+        SizedBox(height: 10.0,),
+        Text('ALEXANDRA',style: TextStyle(color: white,
         fontWeight: FontWeight.w600,fontSize: 18.0),),
-        const Text('Stanton',style: TextStyle(color: white,
+        Text('Stanton',style: TextStyle(color: white,
             fontWeight: FontWeight.w500,fontSize: 16.0),),
-        const SizedBox(height: 10.0,),
-        const Text('Realtor | VP design ',style: TextStyle(color: white,
+        SizedBox(height: 10.0,),
+        Text('Realtor | VP design ',style: TextStyle(color: white,
             fontWeight: FontWeight.w400,fontSize: 16.0),),
-        const Text('Bengaluru India',style: TextStyle(color: white,
+        Text('Bengaluru India',style: TextStyle(color: white,
             fontWeight: FontWeight.w400,fontSize: 16.0),),
-        SizedBox(height: MediaQuery.of(context).size.height*0.3,),
-        const CardsUI(),
-        const LogoUI()
       ],
     );
   }

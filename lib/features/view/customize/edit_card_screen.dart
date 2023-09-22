@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../../../utils/app_color.dart';
 import '../../view_model/edit_view_model.dart';
+import '../../widgets/cards_ui.dart';
 import '../../widgets/logo_ui.dart';
 
 class EditCardScreen extends StatelessWidget {
@@ -75,7 +76,14 @@ class EditCardScreen extends StatelessWidget {
                  ),
 
              const Align(
-               child: StackWidgets())
+               child: StackWidgets()),
+        const Positioned(
+            bottom: 50.0,
+            child:   CardsUI()),
+          const Positioned(
+              bottom: 0.0,
+              left: 0.0,right: 0.0,
+              child:   LogoUI()),
         ],
       ),
                 const SizedBox(height: 30.0,),

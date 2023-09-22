@@ -3,7 +3,7 @@ import 'package:image_panning/features/view_model/upload_picture_view_model.dart
 import 'package:image_panning/utils/string_constants.dart';
 import 'package:provider/provider.dart';
 
-import 'features/view/change_design_screen.dart';
+import 'features/view/image_upload_and_edit/change_design_screen.dart';
 import 'features/view_model/edit_view_model.dart';
 
 void main() {

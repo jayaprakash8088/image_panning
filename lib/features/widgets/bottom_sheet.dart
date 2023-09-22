@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:image_panning/features/view/image_view_and_crop_screen.dart';
+import 'package:image_panning/features/view/image_upload_and_edit/image_view_and_crop_screen.dart';
 import 'package:image_panning/features/widgets/image_select_pop%20_up.dart';
 
 import '../../utils/string_constants.dart';

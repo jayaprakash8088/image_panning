@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_panning/features/view/edit_card_screen.dart';
+import 'package:image_panning/features/view/customize/edit_card_screen.dart';
 import 'package:image_panning/features/widgets/bottom_sheet.dart';
 import 'package:image_panning/features/widgets/button_ui.dart';
 import 'package:image_panning/features/widgets/customize_btn.dart';
 import 'package:image_panning/features/widgets/top_button.dart';
 import 'package:image_panning/utils/string_constants.dart';
 import 'package:provider/provider.dart';
-import '../../utils/app_color.dart';
-import '../../utils/app_config.dart';
-import '../view_model/edit_view_model.dart';
-import '../widgets/profile.dart';
+import '../../../utils/app_color.dart';
+import '../../../utils/app_config.dart';
+import '../../view_model/edit_view_model.dart';
+import '../../widgets/profile.dart';
 
 class LongImage extends StatelessWidget {
   const LongImage({super.key});

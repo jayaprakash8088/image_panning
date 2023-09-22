@@ -6,7 +6,7 @@ import 'package:image_panning/utils/app_images.dart';
 import 'package:image_panning/utils/string_constants.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/bottom_sheet.dart';
+import '../../widgets/bottom_sheet.dart';
 
 class ChangeDesignScreen extends StatelessWidget {
   const ChangeDesignScreen({super.key});

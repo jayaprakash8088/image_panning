@@ -2,14 +2,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_panning/features/view/edit_card_screen.dart';
+import 'package:image_panning/features/view/customize/edit_card_screen.dart';
 import 'package:image_panning/features/widgets/button_ui.dart';
 import 'package:image_panning/utils/app_config.dart';
 import 'package:provider/provider.dart';
 
-import '../../utils/app_color.dart';
-import '../../utils/string_constants.dart';
-import '../view_model/upload_picture_view_model.dart';
+import '../../../utils/app_color.dart';
+import '../../../utils/string_constants.dart';
+import '../../view_model/upload_picture_view_model.dart';
 
 class ImageViewAndCropScreen extends StatelessWidget {
   const ImageViewAndCropScreen({super.key});

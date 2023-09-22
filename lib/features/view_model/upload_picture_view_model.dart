@@ -37,7 +37,7 @@ class UploadPictureViewModel extends ChangeNotifier{
 
   }
 
-  cropImage() async {
+  Future cropImage() async {
       final croppedFile = await ImageCropper().cropImage(
         sourcePath: image!.path,
         compressFormat: ImageCompressFormat.jpg,

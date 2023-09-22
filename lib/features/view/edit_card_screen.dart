@@ -8,15 +8,15 @@ import 'package:image_panning/utils/string_constants.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/app_color.dart';
-import '../view_model/upload_picture_view_model.dart';
+import '../view_model/edit_view_model.dart';
 
 class EditCardScreen extends StatelessWidget {
   const EditCardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    UploadPictureViewModel viewModel =
-        Provider.of<UploadPictureViewModel>(context);
+    EditViewModel viewModel =
+        Provider.of<EditViewModel>(context);
     if (!viewModel.callApi) {
       viewModel.fetchImage();
     }
@@ -55,7 +55,7 @@ class EditCardScreen extends StatelessWidget {
             borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                    child: SizedBox(
                      width: MediaQuery.of(context).size.width*0.87,
-                     height: MediaQuery.of(context).size.height*0.75,
+                     height: MediaQuery.of(context).size.height*0.85,
                      child: Image.network(
                        loadingBuilder:(BuildContext context, Widget child,ImageChunkEvent? loadingProgress) {
                          if (loadingProgress == null) return child;
@@ -83,7 +83,7 @@ class EditCardScreen extends StatelessWidget {
                       navigateToNextScreen(context);
                     },
                     child: const EditCardButton(text: editPhoto)),
-                const SizedBox(height: 10.0,),
+                const SizedBox(height: 15.0,),
               ],
             ),
           ),

@@ -7,10 +7,9 @@ import 'package:image_panning/features/widgets/customize_btn.dart';
 import 'package:image_panning/features/widgets/top_button.dart';
 import 'package:image_panning/utils/string_constants.dart';
 import 'package:provider/provider.dart';
-
 import '../../utils/app_color.dart';
 import '../../utils/app_config.dart';
-import '../view_model/upload_picture_view_model.dart';
+import '../view_model/edit_view_model.dart';
 import '../widgets/profile.dart';
 
 class LongImage extends StatelessWidget {
@@ -19,8 +18,8 @@ class LongImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final globalKey = GlobalKey();
-    UploadPictureViewModel viewModel =
-        Provider.of<UploadPictureViewModel>(context);
+    EditViewModel viewModel =
+        Provider.of<EditViewModel>(context);
     return Scaffold(
       appBar: AppBar(
           elevation: 0.0,
@@ -79,7 +78,7 @@ class LongImage extends StatelessWidget {
                           visible: viewModel.customize,
                           child: GestureDetector(
                               onTap: () {
-                                openBottomSheet(context, viewModel, true);
+                                openBottomSheet(context, null,viewModel);
                               },
                               child: const TopButton())),
                       const SizedBox(height: 10.0),
@@ -131,26 +130,6 @@ class LongImage extends StatelessWidget {
                                             width:MediaQuery.of(context)
                                                 .size
                                                 .width ,
-                                            loadingBuilder: (BuildContext context,
-                                                Widget child,
-                                                ImageChunkEvent?
-                                                    loadingProgress) {
-                                              if (loadingProgress == null) {
-                                                return child;
-                                              }
-                                              return Center(
-                                                child: CircularProgressIndicator(
-                                                  value: loadingProgress
-                                                              .expectedTotalBytes !=
-                                                          null
-                                                      ? loadingProgress
-                                                              .cumulativeBytesLoaded /
-                                                          loadingProgress
-                                                              .expectedTotalBytes!
-                                                      : null,
-                                                ),
-                                              );
-                                            },
                                             viewModel
                                                     .fetchImageResponseModel
                                                     ?.result?[0]
@@ -199,7 +178,7 @@ class LongImage extends StatelessWidget {
     );
   }
 
-  void moveToImageView(BuildContext context, UploadPictureViewModel viewModel) {
+  void moveToImageView(BuildContext context, EditViewModel viewModel) {
     viewModel.callApi = false;
     viewModel.showLoaderForEdit = true;
     viewModel.customize = false;
@@ -208,7 +187,7 @@ class LongImage extends StatelessWidget {
     Navigator.pushAndRemoveUntil(context, newRoute, (route) => false);
   }
 
-  backPressed(UploadPictureViewModel viewModel,BuildContext context)async {
+  backPressed(EditViewModel viewModel,BuildContext context)async {
     viewModel.image=null;
     viewModel.showPickedImage=false;
     Navigator.pop(context);

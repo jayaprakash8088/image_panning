@@ -3,9 +3,11 @@ import 'package:image_panning/features/view/image_view_and_crop_screen.dart';
 import 'package:image_panning/features/widgets/image_select_pop%20_up.dart';
 
 import '../../utils/string_constants.dart';
+import '../view_model/edit_view_model.dart';
 import '../view_model/upload_picture_view_model.dart';
 
-Future openBottomSheet(BuildContext context, UploadPictureViewModel viewModel,bool fromUpdate) {
+Future openBottomSheet(BuildContext context, UploadPictureViewModel? viewModel,
+    EditViewModel? editViewModel) {
   return showModalBottomSheet(
     context: context,
     builder: (BuildContext context) {
@@ -17,13 +19,19 @@ Future openBottomSheet(BuildContext context, UploadPictureViewModel viewModel,bo
           children: <Widget>[
             GestureDetector(
                 onTap: (){
-                  viewModel.getImage(true,fromUpdate).then((dynamic value) =>{
-                    if(value!=null){
-                      fromUpdate?
-                      Navigator.pop(context):
-                      navigateToNextScreen(context)
-                    }
-                  } );
+                 if(viewModel!=null){
+                   viewModel.getImage(true).then((dynamic value) =>{
+                     if(value!=null){
+                       navigateToNextScreen(context)
+                     }
+                   } );
+                 }else{
+                   editViewModel!.getImage(true).then((dynamic value) =>{
+                     if(value!=null){
+                       Navigator.pop(context)
+                     }
+                   } );
+                 }
                 },
                 child: const ImageSelectPopUp(title: camera)),
             const SizedBox(
@@ -31,13 +39,19 @@ Future openBottomSheet(BuildContext context, UploadPictureViewModel viewModel,bo
             ),
             GestureDetector(
                 onTap: (){
-                  viewModel.getImage(false,fromUpdate).then((dynamic value) =>{
-                    if(value!=null){
-                      fromUpdate?
-                      Navigator.pop(context):
-                      navigateToNextScreen(context)
-                    }
-                  } );
+                 if(viewModel!=null){
+                   viewModel.getImage(false).then((dynamic value) =>{
+                     if(value!=null){
+                       navigateToNextScreen(context)
+                     }
+                   } );
+                 }else{
+                   editViewModel!.getImage(false).then((dynamic value) =>{
+                     if(value!=null){
+                       Navigator.pop(context)
+                     }
+                   } );
+                 }
                 },
                 child: const ImageSelectPopUp(title: gallery)),
           ],

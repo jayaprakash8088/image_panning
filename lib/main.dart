@@ -4,10 +4,12 @@ import 'package:image_panning/utils/string_constants.dart';
 import 'package:provider/provider.dart';
 
 import 'features/view/change_design_screen.dart';
+import 'features/view_model/edit_view_model.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (_)=>UploadPictureViewModel())
+    ChangeNotifierProvider(create: (_)=>UploadPictureViewModel()),
+    ChangeNotifierProvider(create: (_)=>EditViewModel())
   ],child: const MyApp(),));
 }
 

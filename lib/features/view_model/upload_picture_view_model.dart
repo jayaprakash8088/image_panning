@@ -21,14 +21,9 @@ class UploadPictureViewModel extends ChangeNotifier{
   String imagePath='';
   CroppedFile? finalCroppedFile;
   bool showLoader=false;
-  bool showLoaderForEdit=false;
-  bool showLoaderForLongUI=false;
-  bool showPickedImage=false;
-  bool customize=false;
-  final scaleMatrix = Matrix4.identity()..scale(1.0);
-  final  viewTransformationController = TransformationController();
+
   //Image Picker function to get image from camera and gallery
-  Future getImage(bool fromCamera, bool fromUpdate) async {
+  Future getImage(bool fromCamera) async {
     XFile? pickedFile;
     if(fromCamera){
       pickedFile=await picker.pickImage(source: ImageSource.camera);
@@ -37,9 +32,6 @@ class UploadPictureViewModel extends ChangeNotifier{
     }
       if (pickedFile != null) {
         image =File(pickedFile.path) ;
-      }
-      if(fromUpdate){
-        changeShowPickedImage();
       }
       return image;
 
@@ -95,62 +87,16 @@ class UploadPictureViewModel extends ChangeNotifier{
         return false;}
     }catch(e){debugPrint(e.toString());}
   }
-  FetchImageResponseModel? fetchImageResponseModel;
-  bool callApi=false;
-  Future fetchImage()async{
-    try{
-      fetchImageResponseModel=await repository.fetchImage();
-      if(fetchImageResponseModel!=null){
-        changeEditLoader();
-        return true;
-      }else {
-        return false;
-      }
-    }catch(e){debugPrint(e.toString());}
-  }
-  Future saveImageAfterCustomized(Uint8List imageBytes)async{
-    SaveImageResponseModel? response;
-    try{
-      response=await repository.saveCustomImage(imageBytes);
-      if(response!=null&&response.success!){
-        changeLoaderForLong();
-        return true;
-      }else{changeLoaderForLong();
-      return false;}
-    }catch(e){
-      debugPrint(e.toString());
-    }
-  }
+
+
+
+
   /////////////////////////////////////////////////
   void changeLoader(){
     showLoader=!showLoader;
     notifyListeners();
   }
-  void changeEditLoader(){
-    showLoaderForEdit=!showLoaderForEdit;
-    callApi=true;
-    notifyListeners();
-  }
-  void changeLoaderForLong(){
-    showLoaderForLongUI=!showLoaderForLongUI;
-    notifyListeners();
-  }
-  void changeCustomize(){
-    customize=!customize;
-    notifyListeners();
-  }
-  void changeShowPickedImage(){
-    showPickedImage=!showPickedImage;
-    notifyListeners();
-  }
-  Future resizeImage(GlobalKey<State<StatefulWidget>> globalKey)async{
-     changeLoaderForLong();
-    final boundary = globalKey.currentContext?.findRenderObject() as RenderRepaintBoundary?;
-    final image = await boundary?.toImage();
-    final byteData = await image?.toByteData(format: ImageByteFormat.png);
-    final imageBytes = byteData?.buffer.asUint8List();
-    bool res=await saveImageAfterCustomized(imageBytes!);
-    return res;
-  }
+
+
 
 }

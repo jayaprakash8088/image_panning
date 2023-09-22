@@ -47,7 +47,6 @@ class ImageViewAndCropScreen extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              centerTitle: viewModel.customize,
             ),
             body:viewModel.showLoader
                 ? const Center(child: CircularProgressIndicator())

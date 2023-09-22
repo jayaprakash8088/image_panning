@@ -27,7 +27,7 @@ class StackWidgets extends StatelessWidget {
             fontWeight: FontWeight.w400,fontSize: 16.0),),
         const Text('Bengaluru India',style: TextStyle(color: white,
             fontWeight: FontWeight.w400,fontSize: 16.0),),
-        SizedBox(height: MediaQuery.of(context).size.height*0.3,),
+        SizedBox(height: MediaQuery.of(context).size.height*0.27,),
         const CardsUI(),
         const LogoUI()
       ],

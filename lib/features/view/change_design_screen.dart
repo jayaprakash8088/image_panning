@@ -33,7 +33,7 @@ class ChangeDesignScreen extends StatelessWidget {
           const SizedBox(height: 20.0,),
           Center(
             child: GestureDetector(
-              onTap: () => openBottomSheet(context,viewModel,false),
+              onTap: () => openBottomSheet(context,viewModel,null),
               child: Container(
                 height: 65.0,
                 padding: const EdgeInsets.all(5.0),

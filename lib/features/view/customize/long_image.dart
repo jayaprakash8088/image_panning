@@ -68,7 +68,7 @@ class LongImage extends StatelessWidget {
           : WillPopScope(
         onWillPop: ()=>backPressed(viewModel,context),
             child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
+                physics: const ScrollPhysics(),
                 child: Padding(
                   padding: const EdgeInsets.only(top:5,left:20.0,right: 20.0,bottom: 20.0),
                   child: Column(

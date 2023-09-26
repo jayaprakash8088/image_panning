@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_panning/features/view/customize/long_image.dart';
 import 'package:image_panning/features/widgets/edit_card_btn.dart';
 import 'package:image_panning/features/widgets/stack_widgets.dart';
+import 'package:image_panning/utils/nav_utils.dart';
 import 'package:image_panning/utils/string_constants.dart';
 import 'package:provider/provider.dart';
 
@@ -89,7 +89,7 @@ class EditCardScreen extends StatelessWidget {
                 const SizedBox(height: 30.0,),
                 GestureDetector(
                     onTap: (){
-                      navigateToNextScreen(context);
+                     NavUtils.navigateToLongImage(context);
                     },
                     child: const EditCardButton(text: editPhoto)),
                 const SizedBox(height: 15.0,),
@@ -99,8 +99,5 @@ class EditCardScreen extends StatelessWidget {
     );
   }
 
-  void navigateToNextScreen(BuildContext context) {
-    dynamic route=MaterialPageRoute(builder: (context)=> const LongImage());
-    Navigator.push(context, route);
-  }
+
 }

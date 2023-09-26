@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:image_panning/features/widgets/cards_ui.dart';
-import 'package:image_panning/features/widgets/logo_ui.dart';
 import 'package:image_panning/utils/app_color.dart';
 
 import '../../utils/app_images.dart';

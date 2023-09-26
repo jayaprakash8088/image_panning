@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_panning/features/view/customize/edit_card_screen.dart';
 import 'package:image_panning/features/widgets/bottom_sheet.dart';
 import 'package:image_panning/features/widgets/button_ui.dart';
 import 'package:image_panning/features/widgets/customize_btn.dart';
@@ -66,7 +65,7 @@ class LongImage extends StatelessWidget {
               child: CircularProgressIndicator(),
             )
           : WillPopScope(
-        onWillPop: ()=>backPressed(viewModel,context),
+        onWillPop: ()=>viewModel.backPressed(context),
             child: SingleChildScrollView(
                 physics: const ScrollPhysics(),
                 child: Padding(
@@ -163,7 +162,7 @@ class LongImage extends StatelessWidget {
                                 .then((dynamic value) => {
                                       if (value != null && value)
                                         {
-                                          moveToImageView(context, viewModel)
+                                          viewModel.moveToImageView(context)
                                         }
                                       else
                                         {AppConfig.showToast(somethingWrong)}
@@ -178,18 +177,7 @@ class LongImage extends StatelessWidget {
     );
   }
 
-  void moveToImageView(BuildContext context, EditViewModel viewModel) {
-    viewModel.callApi = false;
-    viewModel.showLoaderForEdit = true;
-    viewModel.customize = false;
-    dynamic newRoute =
-        MaterialPageRoute(builder: (context) => const EditCardScreen());
-    Navigator.pushAndRemoveUntil(context, newRoute, (route) => false);
-  }
 
-  backPressed(EditViewModel viewModel,BuildContext context)async {
-    viewModel.image=null;
-    viewModel.showPickedImage=false;
-    Navigator.pop(context);
-  }
+
+
 }

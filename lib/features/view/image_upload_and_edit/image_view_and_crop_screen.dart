@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -8,6 +10,7 @@ import 'package:image_panning/utils/app_config.dart';
 import 'package:provider/provider.dart';
 
 import '../../../utils/app_color.dart';
+import '../../../utils/nav_utils.dart';
 import '../../../utils/string_constants.dart';
 import '../../view_model/upload_picture_view_model.dart';
 
@@ -88,7 +91,7 @@ class ImageViewAndCropScreen extends StatelessWidget {
                           onTap: () => {
                             viewModel.saveImage().then((dynamic value) => {
                                   if (value != null && value)
-                                    {moveToNextScreen(context)}
+                                    {NavUtils.moveToEditCard(context)}
                                   else
                                     {AppConfig.showToast(somethingWrong)}
                                 })
@@ -103,9 +106,5 @@ class ImageViewAndCropScreen extends StatelessWidget {
                 );
   }
 
-  void moveToNextScreen(BuildContext context) {
-    dynamic route =
-        MaterialPageRoute(builder: (context) => const EditCardScreen());
-    Navigator.push(context, route);
-  }
+
 }

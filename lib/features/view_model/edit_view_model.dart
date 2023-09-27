@@ -115,4 +115,10 @@ class EditViewModel extends ChangeNotifier {
     customize = false;
     NavUtils.navigateToImageView(context);
   }
+
+  void closePressed(BuildContext context) {
+    showPickedImage=false;
+    changeCustomize();
+    Navigator.pop(context);
+  }
 }

@@ -52,9 +52,7 @@ class LongImage extends StatelessWidget {
             viewModel.customize
                 ? GestureDetector(
                     onTap: () {
-                      viewModel.showPickedImage=false;
-                      viewModel.changeCustomize();
-                      Navigator.pop(context);
+                    viewModel.closePressed(context);
                     },
                     child: const Icon(Icons.close, color: black),
                   )

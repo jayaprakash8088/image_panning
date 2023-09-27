@@ -1,10 +1,8 @@
-// ignore_for_file: unused_import
 
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_panning/features/view/customize/edit_card_screen.dart';
 import 'package:image_panning/features/widgets/button_ui.dart';
 import 'package:image_panning/utils/app_config.dart';
 import 'package:provider/provider.dart';
@@ -74,8 +72,6 @@ class ImageViewAndCropScreen extends StatelessWidget {
                   const SizedBox(
                     height: 10.0,
                   ),
-                  // viewModel.finalCroppedFile != null
-                  //     ?
                   const Text(
                           readyToSave,
                           style: TextStyle(
@@ -85,8 +81,6 @@ class ImageViewAndCropScreen extends StatelessWidget {
                   const SizedBox(
                     height: 50.0,
                   ),
-                  // viewModel.finalCroppedFile != null
-                  //     ?
                   GestureDetector(
                           onTap: () => {
                             viewModel.saveImage().then((dynamic value) => {
@@ -100,7 +94,6 @@ class ImageViewAndCropScreen extends StatelessWidget {
                             text: saveContinue,
                           ),
                         )
-                      // : const SizedBox()
               ],
             ),
                 );

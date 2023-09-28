@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_panning/utils/app_color.dart';
 
 import '../../utils/app_images.dart';
@@ -8,22 +9,24 @@ class StackWidgets extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  const Column(
+    return   Column(
       children: [
-        SizedBox(height: 30.0),
-        ClipOval(
+        const SizedBox(height: 30.0),
+        const ClipOval(
           child:CircleAvatar(radius: 48.0,
               backgroundImage: AssetImage(rail)),
         ),
-        SizedBox(height: 10.0,),
-        Text('ALEXANDRA',style: TextStyle(color: white,
-        fontWeight: FontWeight.w600,fontSize: 18.0),),
-        Text('Stanton',style: TextStyle(color: white,
+        const SizedBox(height: 10.0,),
+        Text('ALEXANDRA',style: GoogleFonts.raleway(
+            color: white,
+            fontWeight: FontWeight.w600,fontSize: 18.0
+        ),),
+        Text('Stanton',style: GoogleFonts.raleway(color: white,
             fontWeight: FontWeight.w500,fontSize: 16.0),),
-        SizedBox(height: 10.0,),
-        Text('Realtor | VP design ',style: TextStyle(color: white,
+        const SizedBox(height: 10.0,),
+        Text('Realtor | VP design ',style: GoogleFonts.raleway(color: white,
             fontWeight: FontWeight.w400,fontSize: 16.0),),
-        Text('Bengaluru India',style: TextStyle(color: white,
+        Text('Bengaluru India',style: GoogleFonts.raleway(color: white,
             fontWeight: FontWeight.w400,fontSize: 16.0),),
       ],
     );

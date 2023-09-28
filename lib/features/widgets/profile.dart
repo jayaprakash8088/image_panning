@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_panning/utils/app_images.dart';
 
 import '../../utils/app_color.dart';
@@ -13,9 +14,9 @@ class Profile extends StatelessWidget {
       children: [
         Image.asset(editPicture),
         const SizedBox(height: 10.0,),
-        const Text('ALEXANDRA',style: TextStyle(color: white,
+         Text('ALEXANDRA',style: GoogleFonts.raleway(color: white,
             fontWeight: FontWeight.w600,fontSize: 18.0),),
-        const Text('Stanton',style: TextStyle(color: white,
+         Text('Stanton',style: GoogleFonts.raleway(color: white,
             fontWeight: FontWeight.w500,fontSize: 16.0),),
       ],
     );

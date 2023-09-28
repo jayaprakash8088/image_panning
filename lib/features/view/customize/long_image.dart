@@ -20,7 +20,8 @@ class LongImage extends StatelessWidget {
     EditViewModel viewModel =
         Provider.of<EditViewModel>(context);
     return Scaffold(
-      appBar: AppBar(
+      appBar:viewModel.showLoaderForLongUI
+          ? null:AppBar(
           elevation: 0.0,
           backgroundColor: Colors.white,
           foregroundColor: Colors.white,

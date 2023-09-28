@@ -18,7 +18,7 @@ class ImageViewAndCropScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UploadPictureViewModel viewModel =
-        Provider.of<UploadPictureViewModel>(context);
+        Provider.of<UploadPictureViewModel>(context,listen: false);
     viewModel.finalCroppedFile == null ? viewModel.cropImage() : null;
     return  Scaffold(
             appBar: viewModel.showLoader
@@ -49,53 +49,56 @@ class ImageViewAndCropScreen extends StatelessWidget {
                 ),
               ),
             ),
-            body:viewModel.showLoader
+            body:Consumer<UploadPictureViewModel>(builder: (context,viewModel,child)=>viewModel.showLoader
                 ? const Center(child: CircularProgressIndicator())
                 : Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                  SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.65,
-                      width: MediaQuery.of(context).size.width,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-                        child: ClipRRect(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10.0)),
-                          child: Image.file(
-                              File(viewModel.finalCroppedFile != null
-                                  ? viewModel.finalCroppedFile!.path
-                                  : viewModel.image!.path),
-                              fit: BoxFit.fill),
-                        ),
-                      )),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  const Text(
-                          readyToSave,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500, fontSize: 16.0),
-                        ),
-                      // : const SizedBox(),
-                  const SizedBox(
-                    height: 50.0,
-                  ),
-                  GestureDetector(
-                          onTap: () => {
-                            viewModel.saveImage().then((dynamic value) => {
-                                  if (value != null && value)
-                                    {NavUtils.moveToEditCard(context)}
-                                  else
-                                    {AppConfig.showToast(somethingWrong)}
-                                })
-                          },
-                          child: const ButtonUI(
-                            text: saveContinue,
-                          ),
-                        )
+                SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.65,
+                    width: MediaQuery.of(context).size.width,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+                      child: ClipRRect(
+                        borderRadius:
+                        const BorderRadius.all(Radius.circular(10.0)),
+                        child: Image.file(
+                            File(viewModel.finalCroppedFile != null
+                                ? viewModel.finalCroppedFile!.path
+                                : viewModel.image!.path),
+                            fit: BoxFit.fill),
+                      ),
+                    )),
+                child!,
               ],
-            ),
+            ),child: Column(
+              children: [
+                const SizedBox(
+                  height: 10.0,
+                ),
+                const Text(
+                  readyToSave,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w500, fontSize: 16.0),
+                ),
+                const SizedBox(
+                  height: 50.0,
+                ),
+                GestureDetector(
+                  onTap: () => {
+                    viewModel.saveImage().then((dynamic value) => {
+                      if (value != null && value)
+                        {NavUtils.moveToEditCard(context)}
+                      else
+                        {AppConfig.showToast(somethingWrong)}
+                    })
+                  },
+                  child: const ButtonUI(
+                    text: saveContinue,
+                  ),
+                ),
+              ],
+            ) ),
                 );
   }
 

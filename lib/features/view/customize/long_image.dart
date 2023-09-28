@@ -68,108 +68,108 @@ class LongImage extends StatelessWidget {
                 physics: const ScrollPhysics(),
                 child: Padding(
                   padding: const EdgeInsets.only(top:5,left:20.0,right: 20.0,bottom: 20.0),
-                  child: Column(
-                    children: [
-                      // const SizedBox(height: 5.0),
-                      Visibility(
-                          visible: viewModel.customize,
-                          child: GestureDetector(
-                              onTap: () {
-                                openBottomSheet(context, null,viewModel);
-                              },
-                              child: const TopButton())),
-                      const SizedBox(height: 10.0),
-                      ClipRRect(
-                        borderRadius:
+                  child:
+                      Column(
+                        children: [
+                          Visibility(
+                              visible: viewModel.customize,
+                              child: GestureDetector(
+                                  onTap: () {
+                                    openBottomSheet(context, null,viewModel);
+                                  },
+                                  child: const TopButton())),
+                          const SizedBox(height: 10.0),
+                          ClipRRect(
+                            borderRadius:
                             const BorderRadius.all(Radius.circular(10.0)),
-                        child: SizedBox(
-                          height: viewModel.customize
-                              ? MediaQuery.of(context).size.height * 0.7
-                              : MediaQuery.of(context).size.height,
-                          width: MediaQuery.of(context).size.width,
-                          child: Stack(
-                            children: [
-                              RepaintBoundary(
-                                key: globalKey,
-                                child: InteractiveViewer(
-                                    scaleEnabled: viewModel.customize,
-                                    constrained: false,
-                                    minScale: 0.1,
-                                    scaleFactor: 0.5,
-                                    maxScale: 6,
-                                    trackpadScrollCausesScale: true,
-                                    panEnabled: viewModel.customize,
-                                    child: viewModel.showPickedImage
-                                        ? Image.file(viewModel.image!,
-                                      fit: BoxFit.fill,
-                                      height: viewModel.customize
-                                          ? MediaQuery.of(context)
-                                          .size
-                                          .height *
-                                          0.7
-                                          : MediaQuery.of(context)
-                                          .size
-                                          .height,
-                                      width:MediaQuery.of(context)
-                                          .size
-                                          .width ,
-                                    )
-                                        : Image.network(
-                                            fit: BoxFit.fill,
-                                            height: viewModel.customize
-                                                ? MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.7
-                                                : MediaQuery.of(context)
-                                                    .size
-                                                    .height,
-                                            width:MediaQuery.of(context)
-                                                .size
-                                                .width ,
-                                            viewModel
-                                                    .fetchImageResponseModel
-                                                    ?.result?[0]
-                                                    .customImageCardDesignInfo
-                                                    ?.profileBannerImageURL ??
-                                                '',
-                                          )),
+                            child: SizedBox(
+                              height: viewModel.customize
+                                  ? MediaQuery.of(context).size.height * 0.7
+                                  : MediaQuery.of(context).size.height,
+                              width: MediaQuery.of(context).size.width,
+                              child: Stack(
+                                children: [
+                                  RepaintBoundary(
+                                    key: globalKey,
+                                    child: InteractiveViewer(
+                                        scaleEnabled: viewModel.customize,
+                                        constrained: false,
+                                        minScale: 0.1,
+                                        scaleFactor: 0.5,
+                                        maxScale: 6,
+                                        trackpadScrollCausesScale: true,
+                                        panEnabled: viewModel.customize,
+                                        child: viewModel.showPickedImage
+                                            ? Image.file(viewModel.image!,
+                                          fit: BoxFit.fill,
+                                          height: viewModel.customize
+                                              ? MediaQuery.of(context)
+                                              .size
+                                              .height *
+                                              0.7
+                                              : MediaQuery.of(context)
+                                              .size
+                                              .height,
+                                          width:MediaQuery.of(context)
+                                              .size
+                                              .width ,
+                                        )
+                                            : Image.network(
+                                          fit: BoxFit.fill,
+                                          height: viewModel.customize
+                                              ? MediaQuery.of(context)
+                                              .size
+                                              .height *
+                                              0.7
+                                              : MediaQuery.of(context)
+                                              .size
+                                              .height,
+                                          width:MediaQuery.of(context)
+                                              .size
+                                              .width ,
+                                          viewModel
+                                              .fetchImageResponseModel
+                                              ?.result?[0]
+                                              .customImageCardDesignInfo
+                                              ?.profileBannerImageURL ??
+                                              '',
+                                        )),
+                                  ),
+                                  Visibility(
+                                    visible: !viewModel.customize,
+                                    child: Positioned(
+                                        top: 10.0,
+                                        right: 10.0,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            viewModel.changeCustomize();
+                                          },
+                                          child: const CustomizeButton(),
+                                        )),
+                                  ),
+                                  const Positioned.fill(top: 30.0, child: Profile())
+                                ],
                               ),
-                              Visibility(
-                                visible: !viewModel.customize,
-                                child: Positioned(
-                                    top: 10.0,
-                                    right: 10.0,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        viewModel.changeCustomize();
-                                      },
-                                      child: const CustomizeButton(),
-                                    )),
-                              ),
-                              const Positioned.fill(top: 30.0, child: Profile())
-                            ],
+                            ),
                           ),
-                        ),
+                          const SizedBox(height: 15.0),
+                          GestureDetector(
+                              onTap: () {
+                                viewModel
+                                    .resizeImage(globalKey)
+                                    .then((dynamic value) => {
+                                  if (value != null && value)
+                                    {
+                                      viewModel.moveToImageView(context)
+                                    }
+                                  else
+                                    {AppConfig.showToast(somethingWrong)}
+                                });
+                              },
+                              child: const ButtonUI(text: save)),
+                          const SizedBox(height: 15.0),
+                        ],
                       ),
-                      const SizedBox(height: 15.0),
-                      GestureDetector(
-                          onTap: () {
-                            viewModel
-                                .resizeImage(globalKey)
-                                .then((dynamic value) => {
-                                      if (value != null && value)
-                                        {
-                                          viewModel.moveToImageView(context)
-                                        }
-                                      else
-                                        {AppConfig.showToast(somethingWrong)}
-                                    });
-                          },
-                          child: const ButtonUI(text: save)),
-                      const SizedBox(height: 15.0),
-                    ],
-                  ),
                 ),
               ),
           ),

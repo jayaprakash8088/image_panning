@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:image_panning/features/model/data_model/customize_data_model.dart';
 import 'package:image_panning/utils/nav_utils.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -13,15 +14,15 @@ import '../model/fetch_image_response_model.dart';
 import '../model/save_image_response_model.dart';
 
 class EditViewModel extends ChangeNotifier {
+  final CustomizeDataModel customizeDataModel=CustomizeDataModel();
   final Repository repository = Repository();
-
-  bool callApi = false;
-  bool showLoaderForEdit = false;
-  bool customize = false;
-  bool showLoaderForLongUI = false;
-  File? image;
-  bool showPickedImage = false;
-  final picker = ImagePicker();
+  bool get callApi => customizeDataModel.callApi;
+  bool get showLoaderForEdit =>customizeDataModel.showLoaderForEdit;
+  bool get customize =>customizeDataModel.customize;
+  bool get showLoaderForLongUI =>customizeDataModel.showLoaderForLongUI;
+  File? get  image=>customizeDataModel.image;
+  bool get showPickedImage =>customizeDataModel.showPickedImage;
+  ImagePicker get  picker =>customizeDataModel.picker;
 
   Future getImage(bool fromCamera) async {
     XFile? pickedFile;
@@ -31,7 +32,7 @@ class EditViewModel extends ChangeNotifier {
       pickedFile = await picker.pickImage(source: ImageSource.gallery);
     }
     if (pickedFile != null) {
-      image = File(pickedFile.path);
+      customizeDataModel.image = File(pickedFile.path);
       changeShowPickedImage();
     }
 
@@ -82,42 +83,42 @@ class EditViewModel extends ChangeNotifier {
   }
 
   void changeEditLoader() {
-    showLoaderForEdit = !showLoaderForEdit;
-    callApi = true;
+    customizeDataModel.showLoaderForEdit = !customizeDataModel.showLoaderForEdit;
+    customizeDataModel.callApi = true;
     notifyListeners();
   }
 
   void changeLoaderForLong() {
-    showLoaderForLongUI = !showLoaderForLongUI;
+    customizeDataModel.showLoaderForLongUI = !customizeDataModel.showLoaderForLongUI;
     notifyListeners();
   }
 
   void changeCustomize() {
-    customize = !customize;
+    customizeDataModel.customize = !customizeDataModel.customize;
     notifyListeners();
   }
 
   void changeShowPickedImage() {
-    showPickedImage = !showPickedImage;
+    customizeDataModel.showPickedImage = !customizeDataModel.showPickedImage;
     notifyListeners();
   }
 
   Future<bool> backPressed(BuildContext context) async {
-    image = null;
-    showPickedImage = false;
+    customizeDataModel.image = null;
+    customizeDataModel.showPickedImage = false;
     Navigator.pop(context);
     return true;
   }
 
   void moveToImageView(BuildContext context) {
-    callApi = false;
-    showLoaderForEdit = true;
-    customize = false;
+    customizeDataModel.callApi = false;
+    customizeDataModel.showLoaderForEdit = true;
+    customizeDataModel.customize = false;
     NavUtils.navigateToImageView(context);
   }
 
   void closePressed(BuildContext context) {
-    showPickedImage=false;
+    customizeDataModel.showPickedImage=false;
     changeCustomize();
     Navigator.pop(context);
   }

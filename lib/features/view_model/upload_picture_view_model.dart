@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_panning/core/services/repository.dart';
+import 'package:image_panning/features/model/data_model/upload_data_model.dart';
 import 'package:image_panning/utils/app_config.dart';
 import 'package:image_panning/utils/string_constants.dart';
 import 'package:image_picker/image_picker.dart';
@@ -12,10 +13,11 @@ import '../model/save_image_response_model.dart';
 
 class UploadPictureViewModel extends ChangeNotifier{
   final Repository repository=Repository();
-  File? image;
-  final picker = ImagePicker();
-  String imagePath='';
-  CroppedFile? finalCroppedFile;
+  final UploadEditDataModel uploadEditDataModel=UploadEditDataModel();
+  File? get image=>uploadEditDataModel.image;
+  ImagePicker get picker =>uploadEditDataModel.picker;
+  String get imagePath=>uploadEditDataModel.imagePath;
+  CroppedFile? get finalCroppedFile=>uploadEditDataModel.finalCroppedFile;
   bool showLoader=false;
 
   //Image Picker function to get image from camera and gallery
@@ -27,7 +29,7 @@ class UploadPictureViewModel extends ChangeNotifier{
       pickedFile=await picker.pickImage(source: ImageSource.gallery);
     }
       if (pickedFile != null) {
-        image =File(pickedFile.path) ;
+        uploadEditDataModel.image =File(pickedFile.path) ;
       }
       return image;
 
@@ -46,7 +48,7 @@ class UploadPictureViewModel extends ChangeNotifier{
         ],
       );
       if (croppedFile != null) {
-        finalCroppedFile = croppedFile;
+        uploadEditDataModel.finalCroppedFile = croppedFile;
         notifyListeners();
       }
     }
@@ -83,9 +85,6 @@ class UploadPictureViewModel extends ChangeNotifier{
         return false;}
     }catch(e){debugPrint(e.toString());}
   }
-
-
-
 
   /////////////////////////////////////////////////
   void changeLoader(){

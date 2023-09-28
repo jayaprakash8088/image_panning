@@ -166,7 +166,8 @@ class LongImage extends StatelessWidget {
                                         {AppConfig.showToast(somethingWrong)}
                                     });
                           },
-                          child: const ButtonUI(text: save))
+                          child: const ButtonUI(text: save)),
+                      const SizedBox(height: 15.0),
                     ],
                   ),
                 ),
